@@ -12,8 +12,8 @@ class random_pickup:
 		self.dt = datetime.datetime.now().strftime('%y%m%d')
 		if os.path.exists(data_dir):
 			self.dt_dir = os.path.join(data_dir, self.dt + '-pickup')
-			print(self.dt_dir)
-			os.mkdir(os.path.join(data_dir, self.dt))
+			print(f"dt_dir: {self.dt_dir}")
+			os.mkdir(self.dt_dir)
 
 		else:
 			print(f"Not exists 『{data_dir}』 !!!")
@@ -23,11 +23,12 @@ class random_pickup:
 		for i in range(int(num_images)):
 			self.random_number = random.uniform(0, len_images)
 			choice_image = cv2.imread(datas[int(self.random_number)])
-			print(datas[int(self.random_number)])
+			print(f"choice_image: {datas[int(self.random_number)]}")
 			file_name = os.path.split(datas[int(self.random_number)])
-			print(file_name[0])
-			print(os.path.join(file_name[0], self.dt_dir, file_name[-1]))
-			#cv2.imwrite(os.path.join(file_name[0],'pickup_files',file_name[-1]), choice_image)
+			print(f"file_name: {file_name}")
+			#print(f"write_img: {os.path.join(file_name[0], self.dt_dir, file_name[-1])}")
+			print(f"save_img: {os.path.join(self.dt_dir, file_name[-1])}")
+			cv2.imwrite(os.path.join(self.dt_dir,file_name[-1]), choice_image)
 
 	def load_data(self, data_dir):
 		self.datas = glob.glob(data_dir + '/*.jpg')
